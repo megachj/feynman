@@ -22,13 +22,14 @@ services:
       - TZ=Asia/Seoul
       - ZOOKEEPER_CONNECT=zookeeper:2181
   mysql:
-    image: debezium/example-mysql:1.4
+    image: megachj/debezium.mysql_example:1.0
     networks:
       - debezium-docker-net
     ports:
       - '3306:3306'
     environment:
       - TZ=Asia/Seoul
+      - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=debezium
       - MYSQL_PASSWORD=debeziumpw
   debezium1:

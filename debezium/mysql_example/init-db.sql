@@ -1,5 +1,4 @@
-# 1. debezium 이 사용할 유저를 만들고, 권한을 부여한다.
-CREATE USER 'debezium'@'%' IDENTIFIED BY 'password'; 
+# 1. debezium 사용자에게 권한을 부여한다.
 GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'debezium' IDENTIFIED BY 'debeziumpw';
 
 # 2. 예제 DB, TABLES 스키마 작성 및 dummy data 생성.
