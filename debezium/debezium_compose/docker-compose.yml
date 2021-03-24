@@ -29,9 +29,8 @@ services:
       - '3306:3306'
     environment:
       - TZ=Asia/Seoul
-      - MYSQL_ROOT_PASSWORD=debezium
-      - MYSQL_USER=mysqluser
-      - MYSQL_PASSWORD=mysqlpw
+      - MYSQL_USER=debezium
+      - MYSQL_PASSWORD=debeziumpw
   debezium1:
     image: debezium/connect:1.4
     networks:
