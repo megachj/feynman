@@ -1,0 +1,17 @@
+{
+    "name": "mysql-source-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+      "database.hostname": "mysql",
+      "database.port": "3306",
+      "database.user": "debezium",
+      "database.password": "debeziumpw",
+      "database.server.id": "824751",
+      "database.serverTimezone": "Asia/Seoul",
+      "database.server.name": "mysqlserver",
+      "database.include.list": "inventory",
+      "database.history.kafka.bootstrap.servers": "kafka:9092",
+      "database.history.kafka.topic": "schema-changes.inventory",
+      "include.schema.changes": "true"
+    }
+  }
