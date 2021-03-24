@@ -20,13 +20,11 @@ services:
       - zookeeper
     environment:
       - TZ=Asia/Seoul
-#      - ZOOKEEPER_CONNECT=zookeeper:2181/kafka
-#      - KAFKA_LISTENERS=PLAINTEXT://kafka:9092
-#      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
       - ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_ADVERTISED_LISTENERS=127.0.0.1
   mysql:
     image: debezium/example-mysql:1.4
+    networks:
+      - debezium-docker-net
     ports:
       - '3306:3306'
     environment:
