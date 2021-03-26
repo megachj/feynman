@@ -3,6 +3,8 @@ GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT ON *
 
 # 2. 예제 DB, TABLES 스키마 작성 및 dummy data 생성.
 CREATE DATABASE moneydb;
+GRANT ALL PRIVILEGES ON moneydb.* TO 'debezium'@'%';
+
 USE moneydb;
 
 CREATE TABLE user (
