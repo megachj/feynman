@@ -17,6 +17,8 @@ services:
     ports:
       - '9092:9092'
       - '9012:9012'
+    volumes:
+      - './volumes/container_data/kafka:/kafka/data'
     depends_on:
       - zookeeper
     environment:
@@ -24,11 +26,11 @@ services:
       - ZOOKEEPER_CONNECT=zookeeper:2181/kafka
       - JMXPORT=9012
   akhq:
-    image: tchiotludo/akhq
+    image: tchiotludo/akhq:0.17.0
     ports:
       - '8080:8080'
     volumes:
-      - './akhq/application.yml:/app/application.yml'
+      - './volumes/akhq/application.yml:/app/application.yml'
     networks:
       - debezium-docker-net
   mysql:
@@ -37,6 +39,8 @@ services:
       - debezium-docker-net
     ports:
       - '3306:3306'
+    volumes:
+      - './volumes/container_data/mysql:/var/lib/mysql'
     environment:
       - TZ=Asia/Seoul
       - MYSQL_ROOT_PASSWORD=root

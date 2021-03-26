@@ -23,7 +23,7 @@ https://docs.confluent.io/platform/current/connect/references/restapi.html
 ### Tasks API
 
 * 태스크 리스트 조회: GET /connectors/{connectorName}/tasks
-* 태스크 사태 조회: GET /connectors/{connectorName}/tasks/{taskId}/status
+* 태스크 상태 조회: GET /connectors/{connectorName}/tasks/{taskId}/status
 * 태스크 재시작: POST /connectors/{connectorName}/tasks/{taskId}/restart
 
 ### Example
