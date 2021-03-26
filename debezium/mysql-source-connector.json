@@ -8,8 +8,8 @@
       "database.password": "debeziumpw",
       "database.server.id": "824751",
       "database.serverTimezone": "Asia/Seoul",
-      "database.server.name": "mysqlserver",
-      "database.include.list": "inventory",
+      "database.server.name": "moneydb-mysqlserver",
+      "database.include.list": "moneydb",
       "database.history.kafka.bootstrap.servers": "kafka:9092",
       "database.history.kafka.topic": "schema-changes.inventory",
       "include.schema.changes": "true"

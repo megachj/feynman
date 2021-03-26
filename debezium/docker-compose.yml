@@ -16,11 +16,21 @@ services:
       - debezium-docker-net
     ports:
       - '9092:9092'
+      - '9012:9012'
     depends_on:
       - zookeeper
     environment:
       - TZ=Asia/Seoul
-      - ZOOKEEPER_CONNECT=zookeeper:2181
+      - ZOOKEEPER_CONNECT=zookeeper:2181/kafka
+      - JMXPORT=9012
+  akhq:
+    image: tchiotludo/akhq
+    ports:
+      - '8080:8080'
+    volumes:
+      - './akhq/application.yml:/app/application.yml'
+    networks:
+      - debezium-docker-net
   mysql:
     image: megachj/debezium.mysql_example:1.0
     networks:
