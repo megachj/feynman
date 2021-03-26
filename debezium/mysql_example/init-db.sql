@@ -30,7 +30,7 @@ CREATE TABLE tx_event (
   created_at datetime DEFAULT NOW(),
   PRIMARY KEY (tx_id)
 );
-ALTER TABLE tx_event AUTO_INCREMENT = 1000;
+ALTER TABLE tx_event AUTO_INCREMENT = 1001;
 
 INSERT INTO tx_event (user_id, target_id, type, amount, created_at)
 VALUES
