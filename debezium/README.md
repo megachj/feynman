@@ -4,9 +4,26 @@
 # 1. 도커 네트워크 설정
 sh ./setup-network.sh
 
-# 2. 도커 컴포즈 실행(zookeeper, kafka, mysql, connect1, connect2)
+# 2. 도커 컴포즈 실행
 docker-compose up -d
+
+# 3. 도커 컴포즈 종료
+docker-compose down
 ```
+
+## debezium mysql connector 등록
+```sh
+# 컨테이너가 실행 중인 상태에서 호출
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" localhost:8083/connectors/ -d @mysql-source-connector.json
+```
+
+## 기타
+### akhq
+브라우저에서 localhost:8080 접속
+
+### grafana
+1. 브라우저에서 localhost:3000 접속
+2. admin/admin 으로 로그인
 
 ## 참고 사항
 컨테이너가 6개 실행되고 특히 connect1, connect2 가 메모리를 많이 사용한다.

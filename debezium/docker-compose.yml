@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
   zookeeper:
     image: debezium/zookeeper:1.4
@@ -16,15 +16,13 @@ services:
       - debezium-docker-net
     ports:
       - '9092:9092'
-      - '9012:9012'
-    volumes:
-      - './volumes/container_data/kafka:/kafka/data'
+    # volumes:
+    #   - './volumes/container_data/kafka:/kafka/data'
     depends_on:
       - zookeeper
     environment:
       - TZ=Asia/Seoul
       - ZOOKEEPER_CONNECT=zookeeper:2181/kafka
-      - JMXPORT=9012
   akhq:
     image: tchiotludo/akhq:0.17.0
     ports:
@@ -34,7 +32,8 @@ services:
     networks:
       - debezium-docker-net
   mysql:
-    image: megachj/debezium.mysql_example:1.0
+    build:
+      context: mysql_example
     networks:
       - debezium-docker-net
     ports:
@@ -47,11 +46,13 @@ services:
       - MYSQL_USER=debezium
       - MYSQL_PASSWORD=debeziumpw
   connect1:
-    image: debezium/connect:1.4
+    build:
+      context: kafka_connect
     networks:
       - debezium-docker-net
     ports:
       - '8083:8083'
+      - '1976:1976'
     depends_on:
       - zookeeper
       - kafka
@@ -67,12 +68,16 @@ services:
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1
       - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1
       - OFFSET_FLUSH_TIMEOUT_MS=60000
+      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml
+      - JMX_PORT=1976 # prometheus 사용을 위한 JMX 포트
   connect2:
-    image: debezium/connect:1.4
+    build:
+      context: kafka_connect
     networks:
       - debezium-docker-net
     ports:
       - '8084:8083'
+      - '1977:1977'
     depends_on:
       - zookeeper
       - kafka
@@ -88,6 +93,24 @@ services:
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1
       - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1
       - OFFSET_FLUSH_TIMEOUT_MS=60000
+      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml
+      - JMX_PORT=1977 # prometheus 사용을 위한 JMX 포트
+  prometheus:
+    build:
+      context: prometheus
+    networks:
+      - debezium-docker-net
+    ports:
+      - '9090:9090'
+  grafana:
+    build:
+      context: grafana
+    networks:
+      - debezium-docker-net
+    ports:
+      - '3000:3000'
+    environment: 
+      - DS_PROMETHEUS=prometheus
 
 networks: 
   debezium-docker-net:

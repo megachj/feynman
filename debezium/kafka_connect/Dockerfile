@@ -1,6 +1,9 @@
 FROM debezium/connect:1.4
 LABEL MAINTAINER="sunset.choe"
 
+RUN curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.15.0/jmx_prometheus_javaagent-0.15.0.jar > /kafka/jmx_prometheus_javaagent.jar
+COPY metrics-config.yml /kafka/metrics-config.yml
+
 # 환경 변수 설정
 ENV TZ=Asia/Seoul
 ENV BOOTSTRAP_SERVERS=kafka:9092
@@ -12,3 +15,4 @@ ENV CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=1
 ENV CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1
 ENV CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1
 ENV OFFSET_FLUSH_TIMEOUT_MS=60000
+# JMX_PORT=xxxx
