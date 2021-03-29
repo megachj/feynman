@@ -22,8 +22,10 @@ curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json"
 브라우저에서 localhost:8080 접속
 
 ### grafana
-1. 브라우저에서 localhost:3000 접속
-2. admin/admin 으로 로그인
+1. 브라우저에서 localhost:3000 접속, admin/admin 으로 로그인.
+2. MySQL Connector 대시보드 접속해서 dashboard variables 를 업데이트 해준다.  
+'Dashboard settings -> Variables' 각 variable 들을 하나씩 들어가서 update 버튼을 눌러준다.
+(이상하게 이걸 해줘야 variable 을 프로메테우스 테이블에서 읽어올 수 있음..)
 
 ## 참고 사항
 컨테이너가 6개 실행되고 특히 connect1, connect2 가 메모리를 많이 사용한다.
