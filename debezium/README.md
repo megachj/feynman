@@ -2,7 +2,8 @@
 ## 도커 컴포즈 실행
 ```sh
 # 1. 도커 네트워크 설정
-sh ./setup-network.sh
+docker network ls # 도커 네트워크 조회
+sh ./setup-network.sh # debezium-docker-net 이 없다면 네트워크 셋업
 
 # 2. 도커 컴포즈 실행
 docker-compose up -d --build
