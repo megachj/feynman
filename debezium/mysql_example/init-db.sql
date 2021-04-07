@@ -30,9 +30,18 @@ CREATE TABLE tx_event (
   type enum('CHARGE', 'SEND', 'RECEIVE') NOT NULL,
   amount int(11) NOT NULL,
   created_at datetime DEFAULT NOW(),
-  PRIMARY KEY (tx_id)
+  PRIMARY KEY (tx_id, created_at),
+  KEY created_at_idx (created_at)
 );
 ALTER TABLE tx_event AUTO_INCREMENT = 1001;
+
+# 월별 파티셔닝
+ALTER TABLE tx_event PARTITION BY RANGE (TO_DAYS(created_at)) (
+  PARTITION p_2020_01 VALUES LESS THAN (TO_DAYS('2020-02-01')),
+  PARTITION p_2020_02 VALUES LESS THAN (TO_DAYS('2020-03-01')),
+  PARTITION p_2020_03 VALUES LESS THAN (TO_DAYS('2020-04-01')),
+  PARTITION p_max VALUES LESS THAN MAXVALUE
+); 
 
 INSERT INTO tx_event (user_id, target_id, type, amount, created_at)
 VALUES
@@ -44,3 +53,17 @@ VALUES
 (3, 5, 'SEND', 10000, '2020-01-03'),
 (4, 3, 'RECEIVE', 10000, '2020-01-03'),
 (5, 3, 'RECEIVE', 10000, '2020-01-03');
+
+INSERT INTO tx_event (user_id, target_id, type, amount, created_at)
+VALUES
+(1, 1, 'CHARGE', 10000, '2020-02-02'),
+(1, 2, 'SEND', 10000, '2020-02-02'),
+(2, 1, 'RECEIVE', 10000, '2020-02-02'),
+(3, 3, 'CHARGE', 20000, '2020-02-03');
+
+INSERT INTO tx_event (user_id, target_id, type, amount, created_at)
+VALUES
+(1, 1, 'CHARGE', 10000, '2020-03-02'),
+(1, 2, 'SEND', 10000, '2020-03-02'),
+(2, 1, 'RECEIVE', 10000, '2020-03-02'),
+(3, 3, 'CHARGE', 20000, '2020-03-03');
