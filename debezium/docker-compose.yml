@@ -10,6 +10,24 @@ services:
       - '3888:3888'
     environment: 
       - TZ=Asia/Seoul
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:6.1.1
+    networks:
+      - debezium-docker-net
+    ports:
+      - 8181:8181
+      - 8081:8081
+    depends_on: 
+      - zookeeper
+    environment:
+      - TZ=Asia/Seoul
+      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=zookeeper:2181/kafka
+      - SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR=1
+      - SCHEMA_REGISTRY_HOST_NAME=schema-registry
+      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+      - SCHEMA_REGISTRY_AVRO_COMPATIBILITY_LEVEL=full
+
   kafka:
     image: debezium/kafka:1.4
     networks:
@@ -23,6 +41,7 @@ services:
     environment:
       - TZ=Asia/Seoul
       - ZOOKEEPER_CONNECT=zookeeper:2181/kafka
+
   akhq:
     image: tchiotludo/akhq:0.17.0
     ports:
@@ -31,6 +50,7 @@ services:
       - './volumes/akhq/application.yml:/app/application.yml'
     networks:
       - debezium-docker-net
+
   mysql:
     build:
       context: mysql_example
@@ -45,20 +65,24 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=debezium
       - MYSQL_PASSWORD=debeziumpw
+
   connect1:
     build:
       context: kafka_connect
     networks:
       - debezium-docker-net
     ports:
-      - '8083:8083'
-      - '1976:1976'
+      - '8083:8083' # HTTP REST PORT
+      - '1976:1976' # JMX PORT
     depends_on:
       - zookeeper
+      - schema-registry
       - kafka
       - mysql
     environment:
+      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml
       - TZ=Asia/Seoul
+      - JMX_PORT=1976
       - BOOTSTRAP_SERVERS=kafka:9092
       - GROUP_ID=connect-cluster-A
       - CONFIG_STORAGE_TOPIC=connect.configs
@@ -68,22 +92,31 @@ services:
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1
       - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1
       - OFFSET_FLUSH_TIMEOUT_MS=60000
-      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml
-      - JMX_PORT=1976 # prometheus 사용을 위한 JMX 포트
+      # avro 설정
+      - KEY_CONVERTER=io.confluent.connect.avro.AvroConverter
+      - VALUE_CONVERTER=io.confluent.connect.avro.AvroConverter
+      - INTERNAL_KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - INTERNAL_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+
   connect2:
     build:
       context: kafka_connect
     networks:
       - debezium-docker-net
     ports:
-      - '8084:8083'
-      - '1977:1977'
+      - '8084:8083' # HTTP REST PORT
+      - '1977:1977' # JMX PORT
     depends_on:
       - zookeeper
+      - schema-registry
       - kafka
       - mysql
     environment:
+      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml
       - TZ=Asia/Seoul
+      - JMX_PORT=1977
       - BOOTSTRAP_SERVERS=kafka:9092
       - GROUP_ID=connect-cluster-A
       - CONFIG_STORAGE_TOPIC=connect.configs
@@ -93,8 +126,14 @@ services:
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1
       - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1
       - OFFSET_FLUSH_TIMEOUT_MS=60000
-      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml
-      - JMX_PORT=1977 # prometheus 사용을 위한 JMX 포트
+      # avro 설정
+      - KEY_CONVERTER=io.confluent.connect.avro.AvroConverter
+      - VALUE_CONVERTER=io.confluent.connect.avro.AvroConverter
+      - INTERNAL_KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - INTERNAL_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+
   prometheus:
     build:
       context: prometheus
@@ -102,6 +141,7 @@ services:
       - debezium-docker-net
     ports:
       - '9090:9090'
+
   grafana:
     build:
       context: grafana
