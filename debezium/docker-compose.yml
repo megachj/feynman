@@ -59,7 +59,6 @@ services:
       - '1976:1976' # JMX PORT
     depends_on:
       - zookeeper
-      - schema-registry
       - kafka
       - mysql
     environment:
@@ -86,7 +85,6 @@ services:
       - '1977:1977' # JMX PORT
     depends_on:
       - zookeeper
-      - schema-registry
       - kafka
       - mysql
     environment:
