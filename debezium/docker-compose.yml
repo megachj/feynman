@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   zookeeper:
-    image: debezium/zookeeper:1.4
+    image: debezium/zookeeper:1.5
     networks:
       - debezium-docker-net
     ports:
@@ -11,25 +11,8 @@ services:
     environment: 
       - TZ=Asia/Seoul
 
-  schema-registry:
-    image: confluentinc/cp-schema-registry:6.1.1
-    networks:
-      - debezium-docker-net
-    ports:
-      - 8181:8181
-      - 8081:8081
-    depends_on: 
-      - zookeeper
-    environment:
-      - TZ=Asia/Seoul
-      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=zookeeper:2181/kafka
-      - SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR=1
-      - SCHEMA_REGISTRY_HOST_NAME=schema-registry
-      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
-      - SCHEMA_REGISTRY_AVRO_COMPATIBILITY_LEVEL=full
-
   kafka:
-    image: debezium/kafka:1.4
+    image: debezium/kafka:1.5
     networks:
       - debezium-docker-net
     ports:
@@ -80,7 +63,7 @@ services:
       - kafka
       - mysql
     environment:
-      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml
+      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml -Dsun.net.inetaddr.ttl=0
       - TZ=Asia/Seoul
       - JMX_PORT=1976
       - BOOTSTRAP_SERVERS=kafka:9092
@@ -92,11 +75,6 @@ services:
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1
       - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1
       - OFFSET_FLUSH_TIMEOUT_MS=60000
-      # avro 설정
-      - KEY_CONVERTER=io.confluent.connect.avro.AvroConverter
-      - VALUE_CONVERTER=io.confluent.connect.avro.AvroConverter
-      - CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
-      - CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
 
   connect2:
     build:
@@ -112,7 +90,7 @@ services:
       - kafka
       - mysql
     environment:
-      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml
+      - KAFKA_OPTS=-javaagent:/kafka/jmx_prometheus_javaagent.jar=8080:/kafka/metrics-config.yml -Dsun.net.inetaddr.ttl=0
       - TZ=Asia/Seoul
       - JMX_PORT=1977
       - BOOTSTRAP_SERVERS=kafka:9092
@@ -124,11 +102,6 @@ services:
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1
       - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1
       - OFFSET_FLUSH_TIMEOUT_MS=60000
-      # avro 설정
-      - KEY_CONVERTER=io.confluent.connect.avro.AvroConverter
-      - VALUE_CONVERTER=io.confluent.connect.avro.AvroConverter
-      - CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
-      - CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
 
   prometheus:
     build:

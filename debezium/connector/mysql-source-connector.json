@@ -6,12 +6,14 @@
       "database.port": "3306",
       "database.user": "debezium",
       "database.password": "debeziumpw",
-      "database.server.id": "824751",
+      "database.server.id": "1",
       "database.serverTimezone": "Asia/Seoul",
-      "database.server.name": "moneydb-mysqlserver",
-      "database.include.list": "moneydb",
+      "database.server.name": "poc_db",
+      "database.include.list": "money",
       "database.history.kafka.bootstrap.servers": "kafka:9092",
-      "database.history.kafka.topic": "schema-changes.moneydb",
-      "include.schema.changes": "true"
+      "database.history.kafka.topic": "poc_db.dbhistory-money",
+      "include.schema.changes": "true",
+      "snapshot.mode": "when_needed",
+      "tombstones.on.delete": "false"
     }
   }
