@@ -12,10 +12,14 @@ docker-compose up -d --build
 docker-compose down
 ```
 
-## debezium mysql connector 등록
+## connector 등록 / 제거 / 상태 확인
 ```sh
 # 컨테이너가 실행 중인 상태에서 호출
-curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" localhost:8083/connectors/ -d @mysql-source-connector.json
+sh connector/register.sh # 등록
+
+sh connector/delete.sh # 제거
+
+sh connector/search.sh # 상태 확인
 ```
 
 ## 기타
