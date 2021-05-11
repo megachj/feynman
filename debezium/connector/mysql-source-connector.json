@@ -8,10 +8,10 @@
       "database.password": "debeziumpw",
       "database.server.id": "1",
       "database.serverTimezone": "Asia/Seoul",
-      "database.server.name": "poc_db",
-      "database.include.list": "money",
+      "database.server.name": "moneydb_server",
+      "database.include.list": "moneydb",
       "database.history.kafka.bootstrap.servers": "kafka:9092",
-      "database.history.kafka.topic": "poc_db.dbhistory-money",
+      "database.history.kafka.topic": "moneydb_server.dbhistory-money",
       "include.schema.changes": "true",
       "snapshot.mode": "when_needed",
       "tombstones.on.delete": "false"
