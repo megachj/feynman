@@ -101,7 +101,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_TotalNumberOfEventsSeen{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_TotalNumberOfEventsSeen{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -176,7 +176,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_NumberOfSkippedEvents{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_NumberOfSkippedEvents{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -255,7 +255,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_NumberOfEventsFiltered{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_NumberOfEventsFiltered{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -344,7 +344,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_Connected{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_Connected{context=\"streaming\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -368,7 +368,7 @@
           "value": "1"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -438,7 +438,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_BinlogPosition{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_BinlogPosition{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -527,7 +527,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_IsGtidModeEnabled{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_IsGtidModeEnabled{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -621,7 +621,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_QueueTotalCapacity{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_QueueTotalCapacity{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -711,7 +711,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_QueueRemainingCapacity{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_QueueRemainingCapacity{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -800,7 +800,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_NumberOfCommittedTransactions{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_NumberOfCommittedTransactions{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -889,7 +889,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_NumberOfRolledBackTransactions{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_NumberOfRolledBackTransactions{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -978,7 +978,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_NumberOfNotWellFormedTransactions{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\r",
+          "expr": "debezium_metrics_NumberOfNotWellFormedTransactions{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1054,7 +1054,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_SecondsBehindMaster{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}",
+          "expr": "debezium_metrics_SecondsBehindMaster{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1156,7 +1156,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_SecondsSinceLastEvent{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_SecondsSinceLastEvent{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1209,7 +1209,7 @@
         "debezium_metrics_NumberOfDisconnects{context=\"binlog\",instance=\"192.168.11.182:7071\",job=\"debezium\",name=\"snapshot-prod-aurora-cluster-cluster\",plugin=\"mysql\"}": "semi-dark-blue",
         "debezium_metrics_NumberOfDisconnects{context=\"binlog\",instance=\"192.168.13.124:7071\",job=\"debezium\",name=\"prod-aurora-cluster\",plugin=\"mysql\"}": "dark-purple"
       },
-      "bars": true,
+      "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "prometheus",
@@ -1240,7 +1240,7 @@
       },
       "lines": true,
       "linewidth": 1,
-      "nullPointMode": "null",
+      "nullPointMode": "null as zero",
       "options": {
         "alertThreshold": true
       },
@@ -1256,7 +1256,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_NumberOfDisconnects{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_Connected{context=\"streaming\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1266,7 +1266,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "NumberOf Disconnects",
+      "title": "NumberOf Connects",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1356,7 +1356,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_MilliSecondsBehindSource{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_MilliSecondsBehindSource{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1456,7 +1456,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "debezium_metrics_NumberOfLargeTransactions{context=\"binlog\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
+          "expr": "debezium_metrics_NumberOfLargeTransactions{context=\"streaming\",instance=\"$instance\",job=\"$job\",name=\"$name\",plugin=\"$plugin\"}\t\r",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
