@@ -22,6 +22,18 @@ sh connector/delete.sh # 제거
 sh connector/search.sh # 상태 확인
 ```
 
+## 도커 명령어
+```sh
+# 내부 컨테이너에 접속하기
+docker exec -it $CONTAINER_ID /bin/bash
+
+# 컨테이너 IP 확인
+docker inspect $CONTAINER_ID
+docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CONTAINER_ID
+
+docker exec $CONTAINER_ID ip addr show eth0
+```
+
 ## 기타
 ### akhq
 브라우저에서 localhost:8080 접속
