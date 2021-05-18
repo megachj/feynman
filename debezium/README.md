@@ -25,16 +25,6 @@ sh connector/search.sh # 등록 확인
 docker-compose -f docker-compose-systems.yml -f docker-compose-apps.yml down
 ```
 
-## connector 등록 / 제거 / 상태 확인
-```sh
-# 컨테이너가 실행 중인 상태에서 호출
-sh connector/register.sh # 등록
-
-sh connector/delete.sh # 제거
-
-sh connector/search.sh # 상태 확인
-```
-
 ## 도커 명령어
 ```sh
 # 내부 컨테이너에 접속하기
