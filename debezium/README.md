@@ -16,6 +16,7 @@ docker-compose -f docker-compose-apps.yml up -d --build
 
 # 5. debezium 커넥터 등록
 sh connector/register.sh
+sh connector/search.sh # 등록 확인
 
 # 6. 도커 컴포즈 종료
 docker-compose -f docker-compose-systems.yml -f docker-compose-apps.yml down
