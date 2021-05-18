@@ -5,11 +5,20 @@
 docker network ls # 도커 네트워크 조회
 sh ./setup-network.sh # debezium-docker-net 이 없다면 네트워크 셋업
 
-# 2. 도커 컴포즈 실행
-docker-compose up -d --build
+# 2. systems(zookeeper, kafka, akhq, mysql) 도커 컴포즈 실행
+docker-compose -f docker-compose-systems.yml up -d --build
 
-# 3. 도커 컴포즈 종료
-docker-compose down
+# 3. 카프카 토픽 생성
+docker exec -it debezium_kafka_1 sh /kafka/topic-setup.sh
+
+# 4. apps(connects, prometheus, grafana) 도커 컴포즈 실행
+docker-compose -f docker-compose-apps.yml up -d --build
+
+# 5. debezium 커넥터 등록
+sh connector/register.sh
+
+# 6. 도커 컴포즈 종료
+docker-compose -f docker-compose-systems.yml -f docker-compose-apps.yml down
 ```
 
 ## connector 등록 / 제거 / 상태 확인

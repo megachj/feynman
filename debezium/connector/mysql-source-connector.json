@@ -14,6 +14,7 @@
       "database.history.kafka.topic": "moneydb_server.dbhistory-money",
       "include.schema.changes": "true",
       "snapshot.mode": "when_needed",
-      "tombstones.on.delete": "false"
+      "tombstones.on.delete": "false",
+      "message.key.columns": "moneydb.tx_event:user_id" 
     }
-  }
+}
