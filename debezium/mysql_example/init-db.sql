@@ -23,6 +23,16 @@ VALUES
 ('ext_user4', '2020-01-01'),
 ('ext_user5', '2020-01-01');
 
+DELETE FROM user;
+
+INSERT INTO user (name, created_at)
+VALUES
+('ext_user1', '2020-01-01'),
+('ext_user2', '2020-01-01'),
+('ext_user3', '2020-01-01'),
+('ext_user4', '2020-01-01'),
+('ext_user5', '2020-01-01');
+
 CREATE TABLE tx_event (
   tx_id bigint(20) NOT NULL AUTO_INCREMENT,
   user_id bigint(20) NOT NULL,

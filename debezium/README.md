@@ -14,8 +14,11 @@ docker exec -it debezium_kafka_1 sh /kafka/topic-setup.sh
 # 4. apps(connects, prometheus, grafana) 도커 컴포즈 실행
 docker-compose -f docker-compose-apps.yml up -d --build
 
-# 5. debezium 커넥터 등록
-sh connector/register.sh
+# 5. debezium 커넥터 등록 (아래 중에서 1개 선택)
+sh connector/register-when_needed.sh
+sh connector/register-never.sh
+sh connector/register-schema_only.sh
+
 sh connector/search.sh # 등록 확인
 
 # 6. 도커 컴포즈 종료
