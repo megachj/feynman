@@ -20,6 +20,7 @@ sh connector/register-never.sh
 sh connector/register-schema_only.sh
 
 sh connector/search.sh # 등록 확인
+sh connector/delete.sh # 커넥터 삭제
 
 # 6. 도커 컴포즈 종료
 docker-compose -f docker-compose-systems.yml -f docker-compose-apps.yml down

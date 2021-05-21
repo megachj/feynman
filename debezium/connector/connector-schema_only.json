@@ -15,6 +15,8 @@
       "include.schema.changes": "true",
       "snapshot.mode": "schema_only",
       "tombstones.on.delete": "false",
-      "message.key.columns": "moneydb.tx_event:user_id" 
+      "message.key.columns": "moneydb.tx_event:user_id;moneydb.user:user_id",
+      "converters": "UtcAdjustmentConverter",
+      "UtcAdjustmentConverter.type": "sunset.debezium.converter.UtcAdjustmentConverter"
     }
 }
