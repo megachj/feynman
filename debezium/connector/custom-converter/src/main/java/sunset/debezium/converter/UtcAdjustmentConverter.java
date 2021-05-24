@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class UtcAdjustmentConverter implements CustomConverter<SchemaBuilder, RelationalColumn> {
 
-    private static final Logger logger = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+    private static final Logger logger = LoggerFactory.getLogger(UtcAdjustmentConverter.class);
 
     private static final List<DateTimeFormatter> DATE_TIME_FORMATTERS
         = List.of(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
