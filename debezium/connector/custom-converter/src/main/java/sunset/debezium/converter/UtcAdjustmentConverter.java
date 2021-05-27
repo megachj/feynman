@@ -30,6 +30,11 @@ public class UtcAdjustmentConverter implements CustomConverter<SchemaBuilder, Re
                     return null;
                 }
 
+                if (value instanceof Number) {
+                    logger.warn("DatetimeStringTypeConverter, value type is number. {}", value);
+                    return value;
+                }
+
                 for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
                     try {
                         return LocalDateTime
@@ -41,8 +46,9 @@ public class UtcAdjustmentConverter implements CustomConverter<SchemaBuilder, Re
                     }
                 }
 
-                logger.error("DatetimeStringTypeConverter parsing exception, value {}.", value);
-                return null;
+                String message = String.format("DatetimeStringTypeConverter, parsing exception. %s", value);
+                logger.error(message);
+                throw new RuntimeException(message);
             });
         }
     }
