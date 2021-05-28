@@ -18,6 +18,7 @@ docker-compose -f docker-compose-apps.yml up -d --build
 sh connector/register-when_needed.sh
 sh connector/register-never.sh
 sh connector/register-schema_only.sh
+sh connector/register-schema_only_recovery.sh # 복구용
 
 sh connector/search.sh # 등록 확인
 sh connector/delete.sh # 커넥터 삭제

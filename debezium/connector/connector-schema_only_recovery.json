@@ -1,0 +1,22 @@
+{
+    "name": "mysql-source-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+      "database.hostname": "mysql",
+      "database.port": "3306",
+      "database.user": "debezium",
+      "database.password": "debeziumpw",
+      "database.server.id": "1",
+      "database.serverTimezone": "Asia/Seoul",
+      "database.server.name": "moneydb_server",
+      "database.include.list": "moneydb",
+      "database.history.kafka.bootstrap.servers": "kafka:9092",
+      "database.history.kafka.topic": "moneydb_server.dbhistory-money",
+      "include.schema.changes": "true",
+      "snapshot.mode": "schema_only_recovery",
+      "tombstones.on.delete": "false",
+      "message.key.columns": "moneydb.tx_event:user_id;moneydb.user:user_id",
+      "converters": "UtcAdjustmentConverter",
+      "UtcAdjustmentConverter.type": "sunset.debezium.converter.UtcAdjustmentConverter"
+    }
+}
