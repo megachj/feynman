@@ -16,9 +16,8 @@ docker-compose -f docker-compose-apps.yml up -d --build
 
 # 5. debezium 커넥터 등록 (아래 중에서 1개 선택)
 sh connector/register-when_needed.sh
-sh connector/register-never.sh
 sh connector/register-schema_only.sh
-sh connector/register-schema_only_recovery.sh # 복구용
+sh connector/register-schema_only_recovery.sh # 스키마 히스토리 토픽 데이터 복구용
 
 sh connector/search.sh # 등록 확인
 sh connector/delete.sh # 커넥터 삭제
@@ -50,6 +49,9 @@ docker exec $CONTAINER_ID ip addr show eth0
 (이상하게 이걸 해줘야 variable 을 프로메테우스 테이블에서 읽어올 수 있음..)
 
 ### MySQL
+MySQL 볼륨을 지우고 싶다면 `sh delete-volume.sh` 스크립트를 실행한다.
+
+MySQL 에서 빈로그 관련 쿼리.
 ```SQL
 SHOW MASTER STATUS; # 현재 빈로그 파일명, 빈로그 위치, GTID 조회
 
