@@ -12,12 +12,12 @@
       "database.include.list": "moneydb",
       "database.history.kafka.bootstrap.servers": "kafka:9092",
       "database.history.kafka.topic": "moneydb_server.dbhistory-money",
+      "database.history.kafka.recovery.poll.interval.ms": "60000",
       "include.schema.changes": "false",
       "snapshot.mode": "schema_only_recovery",
       "tombstones.on.delete": "false",
       "message.key.columns": "moneydb.tx_event:user_id;moneydb.user:user_id",
       "converters": "UtcAdjustmentConverter",
-      "UtcAdjustmentConverter.type": "sunset.debezium.converter.UtcAdjustmentConverter",
-      "database.history.kafka.recovery.poll.interval.ms": "60000"
+      "UtcAdjustmentConverter.type": "sunset.debezium.converter.UtcAdjustmentConverter"
     }
 }

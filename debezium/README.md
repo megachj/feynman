@@ -1,6 +1,9 @@
 # 실행 방법
 ## 도커 컴포즈 실행
 ```sh
+# 0. DB 데이터 삭제(선택 사항)
+sh ./delete-volume.sh
+
 # 1. 도커 네트워크 설정
 docker network ls # 도커 네트워크 조회
 sh ./setup-network.sh # debezium-docker-net 이 없다면 네트워크 셋업
@@ -49,9 +52,6 @@ docker exec $CONTAINER_ID ip addr show eth0
 (이상하게 이걸 해줘야 variable 을 프로메테우스 테이블에서 읽어올 수 있음..)
 
 ### MySQL
-MySQL 볼륨을 지우고 싶다면 `sh delete-volume.sh` 스크립트를 실행한다.
-
-MySQL 에서 빈로그 관련 쿼리.
 ```SQL
 SHOW MASTER STATUS; # 현재 빈로그 파일명, 빈로그 위치, GTID 조회
 
